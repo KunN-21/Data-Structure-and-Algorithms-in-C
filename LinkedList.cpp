@@ -43,16 +43,6 @@ public:
     int size;
 
     SLinkedList(): head(NULL), tail(NULL), size(0){};
-    
-    void Prt()
-    {
-        SNode<T> *node=this->head;
-        while(node!=NULL)
-        {
-            cout << node->data << " ";
-            node=node->next;
-        }
-    }
 
     int NullList(SNode<T> *newNode)
     {
@@ -72,33 +62,41 @@ public:
 
     void addHead(SNode<T> *newNode)
     {
-        if(NullList(newNode)==1)
-        {
-            newNode->next=head;
-            this->head=newNode;
-            this->size++;
-        }
+        if(NullList(newNode)==0)
+            return;
+        newNode->next=head;
+        this->head=newNode;
+        this->size++;
 
     }
     void addTail(SNode<T> *newNode)
     {
-        if(NullList(newNode)==1)
-        {
-            this->tail->next=newNode;
-            this->tail=newNode;
-            this->size++;
-        }
+        if(NullList(newNode)==0)
+            return;
+        this->tail->next=newNode;
+        this->tail=newNode;
+        this->size++;
     }
-    void addAfter(SNode<T> *nodeAfter, SNode<T> *newNode)
+    void addAfter(SNode<T> *nodeBehind, SNode<T> *newNode)
     {
-        newNode->next=nodeAfter->next;
-        nodeAfter->next=newNode;
+        if (NullList(newNode)==0)
+            return;
+        newNode->next=nodeBehind->next;
+        nodeBehind->next=newNode;
+        size++;
+        if (nodeBehind == this->tail)
+            this->tail=newNode;        
+        
     }
 
     void deleteHead()
     {
+        if (size==0)
+        {
+            cout << "ERROR: List is NULL";
+            return;
+        }
         SNode<T> *secNode = this->head->next;
-        //this->head->next=NULL;
         delete this->head;
         this->head=NULL;
         this->head=secNode;
@@ -107,44 +105,78 @@ public:
     }
     void deleteTail()
     {
-        SNode<T> *befTail=this->head;
-        while(befTail->next!=this->tail)
+        if (size==0)
         {
-            befTail=befTail->next;
+            cout << "ERROR: List is NULL";
+            return;
         }
-        //befTail->next=NULL;
+        SNode<T> *frontTail=this->head;       //Create a Node front tail
+        while(frontTail->next!=this->tail)
+        {
+            frontTail=frontTail->next;       //Find frontTail' address
+        }
         delete this->tail;
-        this->tail=befTail;
+        this->tail=frontTail;
         this->size--;
     }
     void deleteMid(SNode<T> *node)
     {
-        SNode<T> *nodeAfter=this->head;
-        while(nodeAfter->next!=node)
+        if (size==0)
         {
-            nodeAfter=nodeAfter->next;
+            cout << "ERROR: List is NULL";
+            return;
         }
-        nodeAfter->next=node->next;
-        //node->next=NULL;
+        if (node == this->head)
+        {
+            deleteHead();
+            return;
+        }
+        if (node == this->head)
+        {
+            deleteTail();
+            return;
+        }
+        SNode<T> *nodeBehind=this->head;         //Create a Node behind deleteNode
+        while(nodeBehind->next!=node)            //Find nodeBehind' address
+        {
+            nodeBehind=nodeBehind->next;
+        }
+        nodeBehind->next=node->next;
         delete node;
         this->size--;
+    }
+    void Prt()
+    {
+        if (NullList == 0)
+        {
+            cout << "ERROR: List is NULL";
+            return;
+        }
+        SNode<T> *node=this->head;
+        while(node!=NULL)
+        {
+            cout << node->data << " ";
+            node=node->next;
+        }
     }
 
 };
 
 int main()
 {
+    //Create Node
     SNode<int> *a= new SNode(12);
     SNode<int> *b= new SNode(11);
     SNode<int> *c= new SNode(13);
+    //Create List
     SLinkedList<int> lst;
+    
     lst.addHead(a);
     lst.addHead(b);
     lst.addTail(c);
-    lst.deleteHead();
+    // lst.deleteHead();
     //lst.deleteTail();
     //lst.deleteMid(&a);
-    cout << a->getNext();
     //lst.Prt();
     return 0;
 }
