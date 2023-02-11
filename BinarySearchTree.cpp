@@ -46,6 +46,7 @@ public:
     void NLR()                      { this->NLR(this->root); }
     void LNR()                      { this->LNR(this->root); }
     void LRN()                      { this->LRN(this->root); }
+    TNode<T> *findNode(T x)         { this->findNode(this->root, x); }
 
     //PRIVATE
 private:
@@ -98,6 +99,20 @@ private:
         this->LRN(node->right);
         cout << node->getData() << ' ';
     }
+    TNode<T> *findNode(TNode<T> *root, T x)
+    {
+        TNode<T> *node = root;
+        while(node != NULL)
+        {
+            if(node->getData() == x)
+                return node;
+            if (x < node->getData())
+                node = node->left;
+            else
+                node = node->right;
+        }
+        return NULL;
+    }
 };
 
 int main()
@@ -112,5 +127,6 @@ int main()
     tree.NLR(); cout << endl;
     tree.LNR(); cout << endl;
     tree.LRN(); cout << endl;
+    TNode<int> *find=tree.findNode(5);
     return 0;
 };
