@@ -3,25 +3,25 @@
 using namespace std;
 
 template <class T>
-class SNode
+class TNode
 {
 public:
     //PROPERTIES
     T data;
-    SNode<T> *left;
-    SNode<T> *right;
+    TNode<T> *left;
+    TNode<T> *right;
     
     //CONSTRUCTOR
-    SNode(): data(NULL), left(NULL), right(NULL){};
-    SNode(T x): data(x), left(NULL), right(NULL){};
+    TNode(): data(NULL), left(NULL), right(NULL){};
+    TNode(T x): data(x), left(NULL), right(NULL){};
 
     //CLASS FUNCTIONS
     void setData(T data)            { this->data=data; }
-    void setLeft(SNode<T> *left)    { this->left=left; }
-    void setRight(SNode<T> *right)  { this->right=right; }
+    void setLeft(TNode<T> *left)    { this->left=left; }
+    void setRight(TNode<T> *right)  { this->right=right; }
     T getData()                     { return this->data; }
-    SNode<T> *getLeft()             { return this->left; }
-    SNode<T> *getRight()            { return this->right; }
+    TNode<T> *getLeft()             { return this->left; }
+    TNode<T> *getRight()            { return this->right; }
 };
 
 template <class T>
@@ -29,7 +29,7 @@ class BinarySearchTree
 {
 public:
     //PROPERTIES
-    SNode<T> *root;
+    TNode<T> *root;
     int size;
 
     //CONSTRUCTOR
@@ -41,23 +41,20 @@ public:
         if(this->size==0) return true;
         return false;
     }
-    int height()
-    {
-        return this->height(this->root);
-    }
-    int addNode(SNode<T> *node)
-    {
-        return this->addNode(this->root, node);
-    }
-    
+    int height()                    { return this->height(this->root); }
+    int addNode(TNode<T> *node)     { return this->addNode(this->root, node); }
+    void NLR()                      { this->NLR(this->root); }
+    void LNR()                      { this->LNR(this->root); }
+    void LRN()                      { this->LRN(this->root); }
+
     //PRIVATE
 private:
-    int height(SNode<T> *node)
+    int height(TNode<T> *node)
     {
         if(node == NULL) {return 0;}
         return 1 + max(this->height(node->getLeft()), this->height(node->getRight()));
     }
-    int addNode(SNode<T> *&currentNode, SNode<T> *node)
+    int addNode(TNode<T> *&currentNode, TNode<T> *node)
     {
         if(currentNode == NULL)
         { 
@@ -80,16 +77,40 @@ private:
         }
         return 1;
     }
+    void NLR(TNode<T> *node)
+    {
+        if(node==NULL) {return;}
+        cout << node->getData() << ' ';
+        this->NLR(node->left);
+        this->NLR(node->right);
+    }
+    void LNR(TNode<T> *node)
+    {
+        if(node==NULL) {return;}
+        this->LNR(node->left);
+        cout << node->getData() << ' ';
+        this->LNR(node->right);
+    }
+    void LRN(TNode<T> *node)
+    {
+        if(node==NULL) {return;}
+        this->LRN(node->left);
+        this->LRN(node->right);
+        cout << node->getData() << ' ';
+    }
 };
 
 int main()
 {
-    SNode<int> *a= new SNode(5);
-    SNode<int> *b= new SNode(3);
-    SNode<int> *c= new SNode(8);
+    TNode<int> *a= new TNode(5);
+    TNode<int> *b= new TNode(3);
+    TNode<int> *c= new TNode(8);
     BinarySearchTree<int> tree;
     tree.addNode(a);
     tree.addNode(b);
     tree.addNode(c);
+    tree.NLR(); cout << endl;
+    tree.LNR(); cout << endl;
+    tree.LRN(); cout << endl;
     return 0;
 };
