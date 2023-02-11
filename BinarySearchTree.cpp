@@ -46,7 +46,7 @@ public:
     void NLR()                      { this->NLR(this->root); }
     void LNR()                      { this->LNR(this->root); }
     void LRN()                      { this->LRN(this->root); }
-    TNode<T> *findNode(T x)         { this->findNode(this->root, x); }
+    TNode<T> *findNode(T x)         { return this->findNode(this->root, x); }
 
     //PRIVATE
 private:
