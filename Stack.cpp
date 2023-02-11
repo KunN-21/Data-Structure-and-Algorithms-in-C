@@ -15,25 +15,11 @@ public:
     StackNode(T x): data(x), next(NULL){};
 
     //CLASS FUNCTIONS
-    void setData(T x)
-    {
-        this->data=x;
-    }
-    void setNext(StackNode<T> *nextNode)
-    {
-        this->next=nextNode;
-    }
-
-    T getData()
-    {
-        return this->data;
-    }
-    StackNode<T>* getNext()
-    {
-        return this->next;
-    }
+    void setData(T x)                       { this->data=x; }
+    void setNext(StackNode<T> *nextNode)    { this->next=nextNode; }
+    T getData()                             { return this->data; }
+    StackNode<T>* getNext()                 { return this->next; }
 };
-
 template <class T>
 class STACK
 {
@@ -49,10 +35,7 @@ public:
     //CLASS FUNCTIONS
     bool isEmpty()
     {
-        if(this->size==0)
-        {
-            return true;
-        }
+        if(this->size==0) { return true; }
         return false;
     }
 
@@ -86,10 +69,7 @@ public:
 
     }
 
-    StackNode<T>* getTop()
-    {
-        return this->Top;
-    }
+    StackNode<T>* getTop()  { return this->Top; }
 
 };
 
