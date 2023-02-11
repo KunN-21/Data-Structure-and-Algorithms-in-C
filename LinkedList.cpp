@@ -15,23 +15,10 @@ public:
     SNode(T x): data(x), next(){};
 
     //CLASS FUNCTIONS
-    void setData(T data)
-    {
-        this->data=data;
-    }
-    void setNext(SNode<T> *next)
-    {
-        this->next=next;
-    }
-    T getData()
-    {
-        return this->data;
-    }
-    SNode<T> *getNext()
-    {
-        return this->next;
-    }
-
+    void setData(T data)            { this->data=data; }
+    void setNext(SNode<T> *next)    { this->next=next; }
+    T getData()                     { return this->data; }
+    SNode<T> *getNext()             { return this->next; }
 };
 
 template <class T>
@@ -85,8 +72,7 @@ public:
         nodeBehind->next=newNode;
         size++;
         if (nodeBehind == this->tail)
-            this->tail=newNode;        
-        
+            this->tail=newNode;          
     }
 
     void deleteHead()
@@ -159,7 +145,6 @@ public:
             node=node->next;
         }
     }
-
 };
 
 int main()
