@@ -162,6 +162,6 @@ int main()
     // lst.deleteHead();
     //lst.deleteTail();
     //lst.deleteMid(&a);
-    //lst.Prt();
+    lst.Prt();
     return 0;
 }
