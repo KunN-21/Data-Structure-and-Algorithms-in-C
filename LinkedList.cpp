@@ -133,7 +133,7 @@ public:
     }
     void Prt()
     {
-        if (NullList == 0)
+        if (this->size == 0)
         {
             cout << "ERROR: List is NULL";
             return;
