@@ -84,6 +84,7 @@ int deleteTNodeLeft(TNode* T)
     if(p->Left != NULL || p->Right != NULL)
         return 0;              //Kiểm tra Node p là Node lá
     delete p;                  //Thực hiện xóa Node p
+    T->Left = NULL;            //Gán NULL là Node con trái của Node T
     return 1;
 }
 
@@ -95,8 +96,8 @@ int deleteTNodeRight(TNode* T)
     if(p->Left != NULL || p->Right != NULL)
         return 0;               //Kiểm tra Node p có tồn tại (khác NULL)
     delete p;                   //Kiểm tra Node p là Node lá
+    T->Right = NULL;            //Gán NULL là Node con phải của Node T
     return 1;                   //Thực hiện xóa Node p
-    return 1;
 }
 
 int main()
@@ -104,13 +105,17 @@ int main()
     BTree bt;
     initBTree(bt);
     bt.Root=createTNode(5);
-    insertTNodeLeft(bt.Root,4);
-    insertTNodeLeft(bt.Root->Left,3);
-    insertTNodeRight(bt.Root->Left,8);
-    insertTNodeRight(bt.Root,6);
-    insertTNodeRight(bt.Root->Right,7);
-    insertTNodeLeft(bt.Root->Right,2);
-    traverseNLR(bt.Root);
-
+    insertTNodeLeft(bt.Root,2);
+    insertTNodeLeft(bt.Root->Left,1);
+    insertTNodeRight(bt.Root->Left,3);
+    insertTNodeRight(bt.Root,8);
+    insertTNodeRight(bt.Root->Right,9);
+    insertTNodeLeft(bt.Root->Right,7);
+    traverseNLR(bt.Root); printf_s(" \n");
+    traverseLNR(bt.Root); printf_s(" \n");
+    traverseLRN(bt.Root); printf_s(" \n");
+    deleteTNodeLeft(bt.Root->Left);
+    deleteTNodeRight(bt.Root->Left);
+    traverseLRN(bt.Root); printf_s(" \n");
     return 0;
 }
