@@ -30,6 +30,13 @@ TNode* createTNode(ItemType x)
     return p;           //Trả về Node p mới được tạo xong
 }
 
+int isEmpty(BTree bt)
+{
+    if(bt.Root==NULL) //Kiểm tra nút gốc của cây có tồn tại hay không
+        return 1;      //Trả về 1 nếu không tồn tại
+    return 0;          //Trả về 0 nếu tồn tại
+}
+
 int insertTNodeLeft(TNode* T, ItemType x)
 {
     if(T == NULL)   
@@ -63,16 +70,16 @@ void traverseNLR(TNode* root)
 void traverseLNR(TNode* root)
 { 
     if(root == NULL) return;    //Kiểm tra Node rỗng
-    traverseNLR(root->Left);    //Đệ quy -> Duyệt qua Trái
+    traverseLNR(root->Left);    //Đệ quy -> Duyệt qua Trái
     printf_s("%d ",root->Info); //Xuất giá trị ra màn hình
-    traverseNLR(root->Right);   //Đệ quy -> Duyệt qua Phải
+    traverseLNR(root->Right);   //Đệ quy -> Duyệt qua Phải
 }
 
 void traverseLRN(TNode* root)
 { 
     if(root == NULL) return;    //Kiểm tra Node rỗng
-    traverseNLR(root->Left);    //Đệ quy -> Duyệt qua Trái
-    traverseNLR(root->Right);   //Đệ quy -> Duyệt qua Phải
+    traverseLRN(root->Left);    //Đệ quy -> Duyệt qua Trái
+    traverseLRN(root->Right);   //Đệ quy -> Duyệt qua Phải
     printf_s("%d ",root->Info); //Xuất giá trị ra màn hình
 }
 
@@ -104,18 +111,21 @@ int main()
 {
     BTree bt;
     initBTree(bt);
-    bt.Root=createTNode(5);
-    insertTNodeLeft(bt.Root,2);
-    insertTNodeLeft(bt.Root->Left,1);
-    insertTNodeRight(bt.Root->Left,3);
-    insertTNodeRight(bt.Root,8);
-    insertTNodeRight(bt.Root->Right,9);
-    insertTNodeLeft(bt.Root->Right,7);
-    traverseNLR(bt.Root); printf_s(" \n");
+    bt.Root=createTNode(0);
+    insertTNodeLeft(bt.Root,1);
+    insertTNodeLeft(bt.Root->Left,3);
+    insertTNodeRight(bt.Root->Left,4);
+    insertTNodeLeft(bt.Root->Left->Right,6);
+    insertTNodeRight(bt.Root->Left->Right,7);
+    insertTNodeRight(bt.Root,2);
+    insertTNodeRight(bt.Root->Right,5);
+    printf_s("%d",isEmpty(bt)); printf_s(" \n");
+    //insertTNodeLeft(bt.Root->Right,7);
+    //traverseNLR(bt.Root); printf_s(" \n");
     traverseLNR(bt.Root); printf_s(" \n");
-    traverseLRN(bt.Root); printf_s(" \n");
-    deleteTNodeLeft(bt.Root->Left);
-    deleteTNodeRight(bt.Root->Left);
-    traverseLRN(bt.Root); printf_s(" \n");
+    //traverseLRN(bt.Root); printf_s(" \n");
+    //deleteTNodeLeft(bt.Root->Left);
+    //deleteTNodeRight(bt.Root->Left);
+    //traverseLRN(bt.Root); printf_s(" \n");
     return 0;
 }
